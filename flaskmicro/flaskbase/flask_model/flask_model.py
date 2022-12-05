@@ -12,8 +12,8 @@ class Author(Base):
     first_name = sa.Column(sa.String)
     last_name = sa.Column(sa.String)
     email = sa.Column(sa.String)
-    birthdate = sa.Column(sa.String)
-    added = sa.Column(sa.String)
+    birthdate = sa.Column(sa.Date)
+    added = sa.Column(sa.TIMESTAMP)
 
     def __init__(self, first_name=None, last_name=None, email=None, birthdate=None, added=None):
         self.first_name = first_name

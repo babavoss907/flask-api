@@ -11,8 +11,8 @@ class SaveAuthor(BaseModel):
     first_name: str = Field(...)
     last_name: str = Field(...)
     email: str = Field(...)
-    birthdate: str = Field(...)
+    birthdate: str = Field(..., title="year-month-day")
     added: str = Field(...)
 
 class GetAuthorByFirstName(BaseModel):
-    first_name: str = Field(...)
+    last_name: str = Field(...)

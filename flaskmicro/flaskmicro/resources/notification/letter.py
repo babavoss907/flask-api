@@ -27,17 +27,24 @@ class Controller:
         return self.test_db()
 
     def get_test_db_query(self, payload):
-        first_name = payload.first_name
-        return self.test_db_query_firstname(first_name)
+        last_name = payload.last_name
+        return self.test_db_query_firstname(last_name)
 
-    def test_db_query_firstname(self, firstname):
-        # import pdb; pdb.set_trace()
-        author_query = db_session.query(Author).filter(Author.last_name == firstname)
+    def test_db_query_firstname(self, last_name):
+        response = []
+        author_query = db_session.query(Author).filter(Author.last_name == last_name)
         for author in author_query:
-            print(author)
+            model = {   "first_name": author.first_name,
+                        "last_name": author.last_name,
+                        "email": author.email,
+                        "birthdate": author.birthdate,
+                        "added": author.added
+                    }
+            response.append(model)
+        return json.dumps(response, indent=4, sort_keys=True, default=str)
 
     def test_db(self):
-        output = []
+        response = []
         authors = Author.query.all()
         for author in authors:
             model = {   "first_name": author.first_name,
@@ -46,9 +53,9 @@ class Controller:
                         "birthdate": author.birthdate,
                         "added": author.added
                     }
-            output.append(model)
+            response.append(model)
         # import pdb; pdb.set_trace()
-        return json.dumps(output, indent=4, sort_keys=True, default=str)
+        return json.dumps(response, indent=4, sort_keys=True, default=str)
 
         # authors = Author.query.all()
         # for author in authors:
