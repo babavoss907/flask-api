@@ -5,16 +5,12 @@ which are required to start the application.
 import os
 from datetime import timedelta
 from flask_jwt_extended import JWTManager
-# from flask_sqlalchemy import SQLAlchemy
-from flask_openapi3 import Info, HTTPBearer, OpenAPI
 from werkzeug.exceptions import HTTPException
+from flask_openapi3 import Info, HTTPBearer, OpenAPI
 
-from flaskmicro import config, error_handlers
 from flaskmicro.common import constants
-from flaskmicro.routes.test_routes import test_routes
-
-
-# db = SQLAlchemy()
+from flaskmicro import config, error_handlers
+from flaskmicro.routes.author_routes import author_routes
 
 
 def create_app(flask_config=None):
@@ -34,18 +30,8 @@ def create_app(flask_config=None):
         security_schemes={"jwt": HTTPBearer()},
     )
 
-    # Configuring logger for micro
-    # logger = Logger(request)
-    # logger.info(" ********** Starting Correspondence Service ********** ")
-
     # Load application configuration from the object
     config.LoadApplicationConfig(app, flask_config)
-
-    # Adding permissions to the application
-    # app.permissions = permissions
-
-    # Adding scoped_session to the application
-    # app.scoped_session = get_scoped_session()
 
     # JSON Web Token configuration
     jwt = JWTManager(app)
@@ -61,11 +47,9 @@ def create_app(flask_config=None):
     app.register_error_handler(Exception, error_handlers.global_errors)
 
     # Register blueprints
-    app.register_api(test_routes)
+    app.register_api(author_routes)
 
-    # Before and after request handlers
+    # Before request handlers
     app.before_request(config.before_request_func)
-    # app.after_request(config.after_request_func)
-    # app.teardown_request(config.teardown_request_func)
 
     return app
