@@ -17,6 +17,10 @@
 $ git clone https://github.com/babavoss907/flask-api.git
 ```
 
+```
+$ cd flaskmicro
+```
+
 2. Create Shell, install dependencies/requirements.
 
 ```
