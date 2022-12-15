@@ -59,7 +59,12 @@ COLLATE='utf8_unicode_ci'
 ENGINE=InnoDB;
 ```
 
-4. Start Apllication
+4. Start Application/ source .env
+
+```
+$ source .env
+```
+
 ```
 $ flask run
 ```
